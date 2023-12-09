@@ -1,13 +1,10 @@
 const fetch = require("node-fetch");
-
-function logresponsebody(jsonBody){
+function logResponseBody(jsonBody){
     console.log(jsonBody);
 }
-
 function callbackfn(result){
-    result.json().then(logresponsebody);
+    result.json().then(logResponseBody);
 }
-
 var sendObj = {
     method : "GET"
 };

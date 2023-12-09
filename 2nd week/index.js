@@ -2,15 +2,16 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express();
 const port = 3000
-
+app.use(bodyParser.json());
 
 function middleware (req,res,next){
+    // console.log(req.body);
     console.log("from inside of middleware " + req.body.counter);
     next();
 }
 
-// app.use(middleware);
-app.use(bodyParser.json());
+app.use(middleware);
+
 
 function csum(counter){
     var sum = 0;
@@ -37,10 +38,33 @@ function givePage(req,res){
     res.send(obj);
 }
 
+// function givePage(req,res){
+//     res.send("<head><title>Hello from Page</title></head><body><b>Hi there</b></body>")
+// }
+
+//or 
+// function givePage(req,res){
+//     res.send(`<head>
+//                 <title>
+//                     Hello from Page
+//                 </title>
+//             </head>
+
+//             <body>
+//                 <b>Hi there</b>
+//             </body>`)
+// }
+
+
 app.get("/", givePage);
 
+// or 
+// function givePage(req,res){
+//     res.sendFile(__dirname + "./index.html");
+// }
 
 function handleFirstRequest(req,res) {
+    // console.log(req.body);
     var counter = req.query.counter;
     var sum = csum(counter);
     var mul = mult(counter);
